@@ -1,9 +1,10 @@
 pipeline{
     agent any
-    stages
-    stage('Bulid test'){
-        steps{
-            echo 'Hello, Maven'
+    stages{
+        stage('Build Test'){
+            steps{
+                echo 'Hello, Maven'
+            }
         }
     }
 }
