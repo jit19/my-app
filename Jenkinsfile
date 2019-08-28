@@ -1,17 +1,27 @@
 pipeline {
-agent any
- 
-tools{
-maven 'maven3'
-jdk 'java-1.8'
-}
- 
-stages {
-stage ("initialize") {
-steps {
-sh '''
-echo "PATH = ${PATH}"
-echo "M2_HOME = ${M2_HOME}"
-'''
-}
+    agent any
+    stages {
+        stage('Example clean') {
+            steps {
+                sh "rm -rf my-app"
+                sh "git clone https://github.com/pknowledge/my-app.git"
+                sh "mvn clean -f my-app"
+            }
+        }
+        stage('Example install') {
+            steps {
+                sh "mvn install -f my-app"
+            }
+        }
+        stage('Example test') {
+            steps {
+                sh "mvn test -f my-app"
+            }
+        }
+        stage('Example package') {
+            steps {
+                sh "mvn package -f my-app"
+            }
+        }
+    }
 }
