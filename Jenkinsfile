@@ -7,6 +7,6 @@ node{
     stage('maven clean'){
         
        def mvnhome = tool name: 'maven3', type: 'maven'
-        sh "${mvnhome}/bin/mvn clean"
+       sh "${mvnhome}/bin/mvn clean"
     }
 }
