@@ -9,4 +9,10 @@ node{
        def mvnhome = tool name: 'maven3', type: 'maven'
        sh "${mvnhome}/bin/mvn clean"
     }
+    stage('maven install'){
+        def mvnhome = tool name: 'maven3', type: 'maven'
+       sh "${mvnhome}/bin/mvn install"
+    
+    }
+    
 }
