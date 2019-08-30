@@ -14,7 +14,7 @@ node{
        sh "${mvnhome}/bin/mvn install"
     
     }
-    stage('maven package'){
+    stage('maven-package'){
        def mvnhome = tool name: 'maven3', type: 'maven'
        sh "${mvnhome}/bin/mvn package"
         
