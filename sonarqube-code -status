@@ -1,0 +1,22 @@
+node{
+  stage('SCM Checkout'){
+     git 'https://github.com/jit19/my-app'
+  }
+  stage('SonarQube Analysis') {
+        def mvnHome =  tool name: 'maven3', type: 'maven'
+        withSonarQubeEnv('SonarQube') { 
+          sh "${mvnHome}/bin/mvn sonar:sonar"
+        }
+ stage("Quality Gate Statuc Check"){
+          timeout(time: 1, unit: 'HOURS') {
+              def qg = waitForQualityGate()
+              if (qg.status != 'OK') {
+                 mail bcc: '', body: '''SonarQube Analysis Failed
+                 Thanks
+                 jitendra''', cc: '', from: '', replyTo: '', subject: 'SonarQube error', to: 'jitendrap@dewsolution.in'
+                 error "Pipeline aborted due to quality gate failure: ${qg.status}"
+              
+              }
+         }
+ }        
+}
