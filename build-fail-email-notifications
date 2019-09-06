@@ -1,0 +1,26 @@
+node{
+    try{
+    
+       stage('Checkout SCM'){
+        
+         git credentialsId: 'jenkinspp', url: 'https://github.com/jit19/my-app'
+       }
+    
+       stage('Maven-Clean'){
+         def mvnhome = tool name: 'maven3', type: 'maven'
+         sh "${mvnhome}/bin/mvn clean"
+       }
+    
+       stage('Maven-package'){
+         def mvnhome = tool name: 'maven3', type: 'maven'
+         sh "${mvnhome}/bin/mvn packages"
+       }
+       
+    } catch(err){
+        mail bcc: '', body: "${err}", cc: '', from: '', replyTo: '', subject: 'FAILURE', to: 'jitendrap@dewsolutions.in'
+    }
+        
+    
+    
+   
+}
